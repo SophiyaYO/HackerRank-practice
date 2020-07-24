@@ -1,3 +1,5 @@
+package PairsOfSocks;
+
 import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Map;
