@@ -1,21 +1,27 @@
 package CountingValleys;
 
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Solution {
 
     // Complete the countingValleys function below.
     static int countingValleys(int n, String s) {
+        String[] upDownSequence = s.split("");
+        int seaLevel = 0;
+        int valleyCounter = 0;
 
-
-
-        return n;
+        for (String sight : upDownSequence) {
+            if (sight.equalsIgnoreCase("D")) {
+               if (seaLevel == 0) {
+                   valleyCounter ++;
+               }
+               seaLevel --;
+            } else {
+               seaLevel ++;
+            }
+        }
+        return valleyCounter;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
@@ -29,6 +35,8 @@ public class Solution {
         String s = scanner.nextLine();
 
         int result = countingValleys(n, s);
+
+        System.out.println(result);
 
 //        bufferedWriter.write(String.valueOf(result));
 //        bufferedWriter.newLine();
