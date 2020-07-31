@@ -8,29 +8,17 @@ public class Solution {
     // Complete the hourglassSum function below.
     static int hourglassSum(int[][] arr) {
         int maxSum = Integer.MIN_VALUE;
-        int sum1 = 0;
-        int sum2 = 0;
-        int sum3 = 0;
-        int sum4 = 0;
+        int sum1;
 
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 6; j++) {
+            for (int j = 0; j < 4; j++) {
+                sum1 = arr[i][j] + arr[i][j + 1] + arr[i][j + 2] + arr[i + 1][j + 1] + arr[i + 2][j] + arr[i + 2][j + 1] + arr[i + 2][j + 2];
 
+                if (sum1 > maxSum) {
+                    maxSum = sum1;
+                }
             }
-            sum1 = arr[i][0] + arr[i][1] + arr[i][2]
-                    + arr[i + 1][1]
-                    + arr[i + 2][0] + arr[i + 2][1] + arr[i + 2][2];
-            sum2 = arr[i][1] + arr[i][2] + arr[i][3]
-                    + arr[i + 1][2]
-                    + arr[i + 2][1] + arr[i + 2][2] + arr[i + 2][3];
-            sum3 = arr[i][2] + arr[i][3] + arr[i][4]
-                    + arr[i + 1][3]
-                    + arr[i + 2][2] + arr[i + 2][3] + arr[i + 2][4];
-            sum4 = arr[i][3] + arr[i][4] + arr[i][5]
-                    + arr[i + 1][4]
-                    + arr[i + 2][3] + arr[i + 2][4] + arr[i + 2][5];
         }
-
 
         return maxSum;
     }
