@@ -8,16 +8,31 @@ public class Solution {
     static void minimumBribes(int[] q) {
         int queueLength = q.length;
         int bribes = 0;
+        boolean isBribed;
 
-        for (int i = 0; i < queueLength; i++) {
-            int startIndex = q[i] - 1;
-            if ((startIndex - i) > 2) {
-                System.out.println("Too chaotic");
-                return;
+        //implemented Bubble sort
+        for (int i = 0; i < queueLength - 1; i++) {
+
+            isBribed =false;
+            for (int j = 0; j < (queueLength - i - 1); j++) {
+                if (q[j] > q[j+1]){
+                    int temp = q[j];
+
+                    if (((q[j] -1) - j) > 2 || ((q[j] -1) - j) < 0 ){
+                        System.out.println("Too chaotic");
+                        return;
+                    }
+
+                    q[j] = q[j+1];
+                    q[j+1] = temp;
+                    bribes ++;
+                    isBribed = true;
+                }
             }
-            if ((startIndex - i) > 0) {
-                bribes += (startIndex - i);
-
+            // if there was no bribing in the inner loop,
+            // it'll break the loop and continue to next index
+            if (!isBribed) {
+                break;
             }
 
         }
