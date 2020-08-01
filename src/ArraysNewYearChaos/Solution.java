@@ -6,8 +6,23 @@ public class Solution {
 
     // Complete the minimumBribes function below.
     static void minimumBribes(int[] q) {
+        int queueLength = q.length;
+        int bribes = 0;
 
+        for (int i = 0; i < queueLength; i++) {
+            int startIndex = q[i] - 1;
+            if ((startIndex - i) > 2) {
+                System.out.println("Too chaotic");
+                return;
+            }
+            if ((startIndex - i) > 0) {
+                bribes += (startIndex - i);
 
+            }
+
+        }
+
+        System.out.println(bribes);
     }
 
     private static final Scanner scanner = new Scanner(System.in);
