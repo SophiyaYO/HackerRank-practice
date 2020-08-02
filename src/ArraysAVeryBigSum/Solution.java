@@ -9,6 +9,10 @@ public class Solution {
     static long aVeryBigSum(long[] ar) {
         long arrSum = 0;
 
+        for (int i = 0; i < ar.length; i++) {
+            arrSum += ar[i];
+        }
+
         return arrSum;
     }
 
@@ -32,7 +36,7 @@ public class Solution {
 
         long result = aVeryBigSum(ar);
 
-        System.out.println(ar);
+        System.out.println(result);
 
 //        bufferedWriter.write(String.valueOf(result));
 //        bufferedWriter.newLine();
