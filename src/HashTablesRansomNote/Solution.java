@@ -3,20 +3,43 @@ package HashTablesRansomNote;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Solution {
 
     // Complete the checkMagazine function below.
     static void checkMagazine(String[] magazine, String[] note) {
         Map<String, Integer> noteWords = new Hashtable<>();
+        Map<String, Integer> magazineWords = new Hashtable<>();
 
-        for (int i = 0; i < note.length; i++) {
-            if (!noteWords.containsKey(note[i])) {
-                noteWords.put(note[i], 0);
+        convertArrayToHashTable(magazine, magazineWords);
+
+        convertArrayToHashTable(note, noteWords);
+
+        Set<String> setOfWords = noteWords.keySet();
+
+        for (String keyWord : setOfWords) {
+            if (!magazineWords.containsKey(keyWord)) {
+                System.out.println("No");
+                return;
             }
-            noteWords.put(note[i], noteWords.get(note[i] + 1));
+            if (magazineWords.get(keyWord) < noteWords.get(keyWord)) {
+                System.out.println("No");
+                return;
+            }
         }
 
+        System.out.println("Yes");
+    }
+
+    //key:word, value: how many times is it contained in the array
+    private static void convertArrayToHashTable(String[] magazine, Map<String, Integer> magazineWords) {
+        for (String w : magazine) {
+            if (!magazineWords.containsKey(w)) {
+                magazineWords.put(w, 0);
+            }
+            magazineWords.put(w, magazineWords.get(w) + 1);
+        }
     }
 
     private static final Scanner scanner = new Scanner(System.in);
