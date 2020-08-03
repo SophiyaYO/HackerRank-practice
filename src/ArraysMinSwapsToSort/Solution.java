@@ -7,9 +7,21 @@ public class Solution {
 
     // Complete the minimumSwaps function below.
     static int minimumSwaps(int[] arr) {
+        int swaps = 0;
 
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != i + 1) {
+                while (arr[i] != i + 1) {
+                    //swap curr with correct position of that element
+                    int temp = arr[arr[i] - 1];
+                    arr[arr[i] - 1] = arr[i];
+                    arr[i] = temp;
+                    swaps++;
+                }
+            }
+        }
 
-        return 3;
+        return swaps;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
