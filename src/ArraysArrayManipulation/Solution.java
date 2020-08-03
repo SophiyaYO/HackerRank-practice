@@ -1,20 +1,37 @@
 package ArraysArrayManipulation;
 
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Solution {
 
     // Complete the arrayManipulation function below.
     static long arrayManipulation(int n, int[][] queries) {
+        //the algorithm is O(m+n), or (10^7)
+        long arr[] = new long[n + 2];//adding 2 more elements so it won't overflow
+        long largestValue = 0;
 
+        for (int i = 0; i < queries.length; i++) {
+            int startIndx = queries[i][0];
+            int endIndx = queries[i][1];
+            int addValue = queries[i][2];
 
-        return 3;
+            //adding the value just in the first index of the given sequence
+            arr[startIndx] += addValue;
+            //subtracting the value from the right next to the last given index of the element
+            arr[endIndx + 1] -= addValue;
+        }
+
+        //next I am adding the value prev ind of array to curr index
+        //-/+ will determine the difference and calculate the right value of the element
+        //Math.max() will give us the final max value of the array
+        //loop is starting from 1, remember I am adding the value of the previous element- this is how I am excluding NullPointerException
+        for (int i = 1; i <= n; i++) {
+            arr[i] += arr[i - 1];
+            largestValue = Math.max(arr[i], largestValue);
+        }
+
+        return largestValue;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
