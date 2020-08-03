@@ -1,7 +1,5 @@
 package ArraysMaxBirthdayCakeCandles;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -9,9 +7,23 @@ public class Solution {
 
     // Complete the birthdayCakeCandles function below.
     static int birthdayCakeCandles(int[] ar) {
+        int countHighest = 0;
+        int highestCandle = Integer.MIN_VALUE;
 
+        for (int i = 0; i < ar.length; i++) {
 
-        return 9;
+            if (ar[i] > highestCandle) {
+                countHighest=0;
+                highestCandle = ar[i];
+            }
+
+            if (ar[i] == highestCandle) {
+                countHighest++;
+            }
+
+        }
+
+        return countHighest;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
