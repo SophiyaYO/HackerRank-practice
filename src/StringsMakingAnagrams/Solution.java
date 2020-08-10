@@ -1,7 +1,6 @@
 package StringsMakingAnagrams;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Solution {
@@ -11,24 +10,42 @@ public class Solution {
         char[] strA = a.toCharArray();
         char[] strB = b.toCharArray();
 
-        Arrays.sort(strA);
-        Arrays.sort(strB);
+        int aLength = strA.length;
+        int bLength = strB.length;
+        int seedValue = 0;
 
-        if (Arrays.equals(strA, strB)){
-            return 0;
+        for (int i = 0; i < aLength; i++) {
+            char c = strA[i];
+
+            if (!b.contains(String.valueOf(c))) {
+                int index = a.indexOf(String.valueOf(c));
+                while (index >= 0) {
+                    seedValue++;
+                    index = a.indexOf(String.valueOf(c), index + 1);
+                }
+                continue;
+            }
         }
 
+        for (int i = 0; i < bLength; i++) {
+            char c = strB[i];
 
+            if (!a.contains(String.valueOf(c))) {
+                int index = b.indexOf(String.valueOf(c));
+                while (index >= 0) {
+                    seedValue++;
+                    index = b.indexOf(String.valueOf(c), index + 1);
+                }
+                continue;
+            }
+        }
 
-        int seedValue = 0;
-        return 3;
+        return seedValue;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-//        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
-
         String a = scanner.nextLine();
 
         String b = scanner.nextLine();
@@ -36,11 +53,6 @@ public class Solution {
         int res = makeAnagram(a, b);
 
         System.out.println(res);
-
-//        bufferedWriter.write(String.valueOf(res));
-//        bufferedWriter.newLine();
-//
-//        bufferedWriter.close();
 
         scanner.close();
     }
