@@ -1,15 +1,30 @@
 package StringsTwoStrings;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Solution {
 
     // Complete the twoStrings function below.
     static String twoStrings(String s1, String s2) {
+        char[] firstStrArr = s1.toCharArray();
+        char[] secondStrArr = s2.toCharArray();
+        Map<Character, Boolean> aLetters = new HashMap<>();
 
+        for (int i = 0; i < s1.length(); i++) {
+            aLetters.putIfAbsent(firstStrArr[i], false);
+        }
 
-        return s1;
+        for (int i = 0; i < s2.length(); i++) {
+            char c = secondStrArr[i];
+            if (aLetters.containsKey(c)){
+                return "YES";
+            }
+        }
+
+        return "NO";
     }
 
     private static final Scanner scanner = new Scanner(System.in);
