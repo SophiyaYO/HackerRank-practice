@@ -14,6 +14,25 @@ public class Solution {
     static long countTriplets(List<Long> arr, long r) {
         long counter = 0;
 
+        for (int i = 0; i <= (arr.size() - 3); i++) {
+
+            if (arr.get(i) != 1 && arr.get(i) % r != 0) {
+                continue;
+            }
+            for (int j = i + 1; j <= (arr.size() - 2); j++) {
+                if (arr.get(j) / r != arr.get(i)) {
+                    continue;
+                }
+
+                for (int k = j + 1; k < arr.size(); k++) {
+                    if (arr.get(k) / r != arr.get(j)) {
+                        continue;
+                    }
+                    counter++;
+                }
+            }
+        }
+
         return counter;
     }
 
