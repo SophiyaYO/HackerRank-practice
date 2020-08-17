@@ -3,7 +3,9 @@ package HashTablesCountTriplets;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
@@ -11,25 +13,33 @@ import static java.util.stream.Collectors.toList;
 public class Solution {
 
     // Complete the countTriplets function below.
-    static long countTriplets(List<Long> arr, long r) {
+    private static long countTriplets(List<Long> arr, long r) {
+        Map<Long, Long> collectDivisible = new HashMap<>();
         long counter = 0;
 
-        for (int i = 0; i <= (arr.size() - 3); i++) {
-
-            if (arr.get(i) != 1 && arr.get(i) % r != 0) {
+        //check every list number
+        for (long currNumber : arr) {
+            //if it is not divisible by r or not equal to 1 go to the next number in the list
+            if (currNumber != 1 && currNumber % r != 0) {
                 continue;
             }
-            for (int j = i + 1; j <= (arr.size() - 2); j++) {
-                if (arr.get(j) / r != arr.get(i)) {
-                    continue;
-                }
 
-                for (int k = j + 1; k < arr.size(); k++) {
-                    if (arr.get(k) / r != arr.get(j)) {
-                        continue;
-                    }
-                    counter++;
-                }
+            //collect all unique numbers and count their repeatability
+            if (!collectDivisible.containsKey(currNumber)) {
+                collectDivisible.put(currNumber, 1L);
+            } else {
+                long currValue = collectDivisible.get(currNumber);
+                collectDivisible.put(currNumber, currValue + 1);
+            }
+            //assume currNumber is the third value of the triplets
+            //calculate the middle and the lowest value of it
+            long middle = currNumber / r;
+            long low = middle /r;
+
+            //if collectDivisible contains both middle and low
+            //increase the counter by the result of the multiplication of the values of middle and low
+            if (collectDivisible.containsKey(middle) && collectDivisible.containsKey(low)) {
+                counter += (collectDivisible.get(middle) * collectDivisible.get(low));
             }
         }
 
