@@ -14,36 +14,35 @@ public class Solution {
 
     // Complete the countTriplets function below.
     private static long countTriplets(List<Long> arr, long r) {
-        Map<Long, Long> collectDivisible = new HashMap<>();
-        long counter = 0;
+        long total = 0;
+        Map<Long, Long> count = new HashMap<>(); // count of ints
+        Map<Long, Long> tuplets = new HashMap<>(); // map 2nd -> count of links
 
-        //check every list number
-        for (long currNumber : arr) {
-            //if it is not divisible by r or not equal to 1 go to the next number in the list
-            if (currNumber != 1 && currNumber % r != 0) {
-                continue;
+        for (int i = 0; i < arr.size(); ++i) {
+            //System.out.printf("i=%d\n", i);
+            long val = arr.get(i);
+            // inc total
+            if (val % r == 0 && tuplets.containsKey(val / r)) {
+                total += tuplets.get(val / r);
+                //System.out.printf("%dx %d -> %d -> %d\n", t.count, t.first, val / r, val);
+            }
+            // create links/tuplets
+            if (tuplets.containsKey(val)) {
+                tuplets.put(val, tuplets.get(val) + count.get(val/r));
+                //System.out.printf("%dx %d -> %d\n", tuplets.get(val).count, tuplets.get(val).first, val);
+            } else if (val % r == 0 && count.containsKey(val / r)) {
+                //System.out.printf("%dx %d -> %d\n", count.get(val/r), val/r, val);
+                tuplets.put(val, count.get(val / r));
             }
 
-            //collect all unique numbers and count their repeatability
-            if (!collectDivisible.containsKey(currNumber)) {
-                collectDivisible.put(currNumber, 1L);
-            } else {
-                long currValue = collectDivisible.get(currNumber);
-                collectDivisible.put(currNumber, currValue + 1);
-            }
-            //assume currNumber is the third value of the triplets
-            //calculate the middle and the lowest value of it
-            long middle = currNumber / r;
-            long low = middle /r;
-
-            //if collectDivisible contains both middle and low
-            //increase the counter by the result of the multiplication of the values of middle and low
-            if (collectDivisible.containsKey(middle) && collectDivisible.containsKey(low)) {
-                counter += (collectDivisible.get(middle) * collectDivisible.get(low));
-            }
+            // inc count
+            if (count.containsKey(val))
+                count.put(val, count.get(val)+1);
+            else
+                count.put(val, 1L);
         }
 
-        return counter;
+        return total;
     }
 
     public static void main(String[] args) throws IOException {
