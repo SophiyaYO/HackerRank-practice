@@ -1,14 +1,38 @@
 package HashTablesSherlckAndAnagrams;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Solution {
 
     // Complete the sherlockAndAnagrams function below.
     static int sherlockAndAnagrams(String s) {
+        Map<String, Integer> collectSubstrings = new HashMap<>();
+        int countAnagrams = 0;
 
-        return 1;
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i+1; j <= s.length(); j++) {
+                String currSubstr = s.substring(i,j);
+
+                char[] chars = currSubstr.toCharArray();
+                Arrays.sort(chars);
+                currSubstr = String.valueOf(chars);
+
+                if (collectSubstrings.containsKey(currSubstr)) {
+                    int duplicatingVal = collectSubstrings.get(currSubstr);
+                    countAnagrams += duplicatingVal;
+
+                    collectSubstrings.put(currSubstr, duplicatingVal + 1);
+                } else {
+                    collectSubstrings.put(currSubstr, 1);
+                }
+            }
+        }
+
+        return countAnagrams;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
