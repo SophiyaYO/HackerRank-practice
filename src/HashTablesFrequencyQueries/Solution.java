@@ -3,10 +3,7 @@ package HashTablesFrequencyQueries;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -28,19 +25,34 @@ public class Solution {
                 continue;
             }
 
-            if (x.get(0) == 2){
-                if (collectNumbers.containsKey(x.get(1))){
-                    collectNumbers.put(x.get(1), collectNumbers.get(x.get(1))-1);
+            if (x.get(0) == 2) {
+                if (collectNumbers.containsKey(x.get(1))) {
+                    if (collectNumbers.get(x.get(1)) == 1) {
+                        collectNumbers.remove(x.get(1));
+                        continue;
+                    }
+                    collectNumbers.put(x.get(1), collectNumbers.get(x.get(1)) - 1);
                 }
                 continue;
             }
 
-            if (x.get(0) == 3){
-                if (collectNumbers.containsValue(x.get(1))){
-                output.add(1);
-                continue;
+            if (x.get(0) == 3) {
+
+                //first statement is for time limits.
+                //in the description is said that q <= 10^5 and query[i][1] <= 10^9
+                // that's why x.get(1) cannot be more then the size of the queries
+                if (x.get(1) > queries.size()){
+                    output.add(0);
+                } else {
+                    Set<Integer> l = new HashSet<>(collectNumbers.values());
+                    if (l.contains(x.get(1))) {
+                        output.add(1);
+
+                    } else {
+                        output.add(0);
+
+                    }
                 }
-                output.add(0);
             }
         }
         return output;
