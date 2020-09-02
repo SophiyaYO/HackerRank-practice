@@ -18,6 +18,7 @@ public class Solution {
                 String currSubstr = s.substring(i,j);
 
                 char[] chars = currSubstr.toCharArray();
+
                 Arrays.sort(chars);
                 currSubstr = String.valueOf(chars);
 
