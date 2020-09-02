@@ -7,8 +7,19 @@ public class Solution {
 
     // Complete the alternatingCharacters function below.
     static int alternatingCharacters(String s) {
+        StringBuilder stringBuilder = new StringBuilder();
+        int strInitLength = s.length();
+        stringBuilder.append(s.charAt(0));
 
-        return 3;
+        for (int i = 1; i < strInitLength; i++) {
+            if (stringBuilder.charAt(stringBuilder.length()-1) != s.charAt(i)) {
+                stringBuilder.append(s.charAt(i));
+            }
+        }
+
+        int deletions = Math.abs(strInitLength - stringBuilder.length());
+
+        return deletions;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
